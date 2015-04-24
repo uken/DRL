@@ -1,0 +1,24 @@
+{
+  "name": "DRL",
+  "version": "1.0.0",
+  "description": "A declarative rendering library.",
+  "main": "drl.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "keywords": [
+    "rendering",
+    "webgl",
+    "declarative"
+  ],
+  "author": "Tanner Rogalsky",
+  "license": "MIT",
+  "devDependencies": {
+    "babel": "^5.1.11",
+    "babelify": "^6.0.2",
+    "gulp": "^3.8.11"
+  },
+  "dependencies": {
+    "gulp-browserify": "^0.5.1"
+  }
+}
