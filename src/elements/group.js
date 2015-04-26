@@ -1,8 +1,8 @@
-var DRL = require('../drl.js');
+import DRL from '../drl.js';
 
 var Group = DRL.createClass({
   name: "Group",
-  render: function(context) {
+  render: function() {
     return this.children;
   }
 });

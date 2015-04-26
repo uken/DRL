@@ -1,5 +1,6 @@
 import instantiateElement from './instantiateElement.js';
-import renderElement from './renderElement';
+import renderElement from './renderElement.js';
+import TexturePool from './texturePool.js';
 
 var DRL = {
   createClass: function(spec) {
@@ -10,6 +11,11 @@ var DRL = {
       }, spec);
       return node;
     };
+  },
+
+  load: function(canvas, imagePaths, onCompleteCallback) {
+    TexturePool.initialize(canvas);
+    TexturePool.load(imagePaths, onCompleteCallback);
   },
 
   render: function(element, canvas) {

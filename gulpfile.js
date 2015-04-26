@@ -15,6 +15,6 @@ gulp.task('default', function() {
     .pipe(gulp.dest('./build'))
 });
 
-gulp.task('watch', function(){
+gulp.task('watch', ['default'], function(){
   gulp.watch(['./drl.js', './src/**/*.js', './examples/**/*.js'], ['default']);
 });

@@ -1,4 +1,4 @@
-var DRL = require('../drl.js');
+import DRL from '../drl.js';
 
 var Rectangle = DRL.createClass({
   name: 'Rectangle',
@@ -8,7 +8,7 @@ var Rectangle = DRL.createClass({
     context.fillRect(this.props.x, this.props.y, this.props.w, this.props.h);
   },
 
-  render: function(context) {
+  render: function() {
     return this.children;
   }
 });

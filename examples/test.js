@@ -21,7 +21,7 @@ var App = DRL.createClass({
         Rectangle({color: 'lightblue', x: 0, y: 0, w: 600, h: 600},
           this.props.ships.map(function(ship){
             return Ship({x: ship.x, y: ship.y}, [
-              Rectangle({color: 'blue', x: ship.x + 15, y: ship.y + 15, w: 30, h: 30})
+              Rectangle({color: 'blue', x: ship.x - 25, y: ship.y + 5, w: 30, h: 30})
             ]);
           }).concat(this.props.rockets.map(function(rocket){
             return Rectangle({color: 'red', x: rocket.x, y: rocket.y, w: 50, h: 25});
@@ -33,7 +33,6 @@ var App = DRL.createClass({
 })
 
 var canvas = document.getElementById('main_content');
-
 var render = function(t) {
   update(t);
 
@@ -41,7 +40,10 @@ var render = function(t) {
 
   requestAnimationFrame(render);
 };
-requestAnimationFrame(render);
+
+DRL.load(canvas, ['cat.jpeg'], function() {
+  requestAnimationFrame(render);
+});
 
 var update = function(t) {
   updateShips(t);
