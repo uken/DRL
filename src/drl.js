@@ -6,7 +6,7 @@ var DRL = {
   createClass: function(spec) {
     return function(props, children) {
       var node = Object.assign({
-        props: props,
+        props: Object.assign({}, spec.defaultProps, props),
         children: children || []
       }, spec);
       return node;

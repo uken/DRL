@@ -3,9 +3,19 @@ import DRL from '../drl.js';
 var Group = DRL.createClass({
   name: "Group",
 
+  defaultProps: {
+    x: 0,
+    y: 0,
+    sx: 1,
+    sy: 1,
+    kx: 0,
+    ky: 0
+  },
+
   setup: function(context) {
     context.save();
-    context.transform(1, 0, 0, 1, this.props.x, this.props.y);
+    var props = this.props;
+    context.transform(props.sx, 0, 0, props.sy, props.x, props.y);
   },
 
   teardown: function(context) {

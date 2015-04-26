@@ -26,7 +26,7 @@ var App = DRL.createClass({
           ]);
         }).concat(this.props.rockets.map(function(rocket){
           return Rectangle({color: 'red', x: rocket.x, y: rocket.y, w: 50, h: 25});
-        })).concat(Text({text: "Test", x: 50, y: 100, color: 'green'}))
+        })).concat(Text({text: "Test", x: 50, y: 100, font: '26px sans-serif'}))
       )
     );
   }
