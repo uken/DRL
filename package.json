@@ -18,10 +18,8 @@
     "babelify": "^6.0.2",
     "chai": "^2.2.0",
     "gulp": "^3.8.11",
+    "gulp-browserify": "^0.5.1",
     "mocha": "^2.2.4",
     "sinon": "^1.14.1"
-  },
-  "dependencies": {
-    "gulp-browserify": "^0.5.1"
   }
 }
