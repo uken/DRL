@@ -17,17 +17,15 @@ setInterval(function() {
 var App = DRL.createClass({
   render: function() {
     return (
-      Group({}, [
-        Rectangle({color: 'lightblue', x: 0, y: 0, w: 600, h: 600},
-          this.props.ships.map(function(ship){
-            return Ship({x: ship.x, y: ship.y}, [
-              Rectangle({color: 'blue', x: ship.x - 25, y: ship.y + 5, w: 30, h: 30})
-            ]);
-          }).concat(this.props.rockets.map(function(rocket){
-            return Rectangle({color: 'red', x: rocket.x, y: rocket.y, w: 50, h: 25});
-          }))
-        ),
-      ])
+      Rectangle({color: 'lightblue', x: 0, y: 0, w: 600, h: 600},
+        this.props.ships.map(function(ship){
+          return Ship({x: ship.x, y: ship.y}, [
+            Rectangle({color: 'blue', x: -15, y: 5, w: 30, h: 30})
+          ]);
+        }).concat(this.props.rockets.map(function(rocket){
+          return Rectangle({color: 'red', x: rocket.x, y: rocket.y, w: 50, h: 25});
+        }))
+      )
     );
   }
 })
