@@ -5,11 +5,17 @@ var generateSuite = require('gulp-mocha-browserify-suite');
 
 gulp.task('default', function() {
   gulp.src('./drl.js')
-    .pipe(browserify({transform: ['babelify']}))
+    .pipe(browserify({
+      transform: ['babelify'],
+      debug: true
+    }))
     .pipe(gulp.dest('./build'))
 
   gulp.src('./examples/test.js')
-    .pipe(browserify({transform: ['babelify']}))
+    .pipe(browserify({
+      transform: ['babelify'],
+      debug: true
+    }))
     .pipe(gulp.dest('./build'))
 });
 

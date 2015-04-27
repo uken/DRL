@@ -6,7 +6,8 @@ var Sprite = DRL.createClass({
 
   setup: function(context) {
     var image = TexturePool.get(this.props.path);
-    context.drawImage(image, this.props.x, this.props.y);
+    var props = this.props;
+    context.drawImage(image, props.x, props.y, props.w || image.width, props.h || image.height);
   },
 
   render: function() {

@@ -6,7 +6,7 @@ var Mask = DRL.createClass({
   setup: function(context) {
     context.save();
     context.beginPath();
-    context.arc(this.props.x, this.props.y, 30, 0, Math.PI*2, true);
+    context.arc(this.props.x, this.props.y, 20, 0, Math.PI*2, true);
     context.clip();
   },
 
