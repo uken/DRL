@@ -1,0 +1,30 @@
+{"frames": {
+
+"cat.jpeg":
+{
+	"frame": {"x":2,"y":340,"w":50,"h":50},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":50,"h":50},
+	"sourceSize": {"w":50,"h":50},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"clouds.jpg":
+{
+	"frame": {"x":2,"y":2,"w":508,"h":336},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":508,"h":336},
+	"sourceSize": {"w":508,"h":336},
+	"pivot": {"x":0.5,"y":0.5}
+}},
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "sprites.png",
+	"format": "RGBA8888",
+	"size": {"w":512,"h":392},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:7be1fd528cf1a62621977783768402bf:f547c7639a0b43d7a560b395bde4e861:1eabdf11f75e3a4fe3147baf7b5be24b$"
+}
+}
