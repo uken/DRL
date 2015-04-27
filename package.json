@@ -16,10 +16,11 @@
   "devDependencies": {
     "babel": "^5.1.11",
     "babelify": "^6.0.2",
-    "chai": "^2.2.0",
     "gulp": "^3.8.11",
     "gulp-browserify": "^0.5.1",
-    "mocha": "^2.2.4",
+    "gulp-mocha": "^2.0.1",
+    "gulp-mocha-browserify-suite": "^0.1.0",
+    "should": "^6.0.1",
     "sinon": "^1.14.1"
   }
 }
