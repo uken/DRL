@@ -1,9 +1,7 @@
 import DRL from '../drl.js';
-import {Elements} from '../drl.js';
-import Ship from './ship.js';
+import App from './app.js';
 
-var {Rectangle, Group, Mask, Text, Sprite} = Elements;
-
+var canvas = document.getElementById('main_content');
 var ships = [{x: 50, y: 100}, {x: 50, y: 200}, {x: 50, y: 300}];
 var rockets = [];
 
@@ -12,32 +10,11 @@ setInterval(function() {
     var ship = ships[i];
     rockets.push({x: ship.x, y: ship.y});
   };
-}, 1000)
+}, 1000);
 
-var App = DRL.createClass({
-  render: function() {
-    return (
-      Sprite({path: 'clouds.jpg', x: 0, y: 0, w: 600, h: 600},
-        this.props.ships.map(function(ship){
-          return Mask({x: ship.x + 25, y: ship.y + 25}, [
-            Ship({x: ship.x, y: ship.y}, [
-              Rectangle({color: 'teal', x: -15, y: 0, w: 30, h: 50})
-            ])
-          ]);
-        }).concat(this.props.rockets.map(function(rocket){
-          return Rectangle({color: 'red', x: rocket.x, y: rocket.y, w: 50, h: 25});
-        })).concat(Text({text: 'Test', x: 50, y: 100, font: '26px sans-serif'}))
-      )
-    );
-  }
-})
-
-var canvas = document.getElementById('main_content');
 var render = function(t) {
   update(t);
-
   DRL.render(App({ships: ships, rockets: rockets}), canvas);
-
   requestAnimationFrame(render);
 };
 
