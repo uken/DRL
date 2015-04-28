@@ -1,4 +1,4 @@
-var instantiateElement = function(node, id, depth) {
+var buildTree = function(node, id, depth) {
   var element = node.element;
 
   if (element instanceof Array) {
@@ -15,10 +15,8 @@ var instantiateElement = function(node, id, depth) {
   }
 
   for (var i = 0; i < node.children.length; i++) {
-    instantiateElement(node.children[i], id + '.' + i, depth + 1);
+    buildTree(node.children[i], id + '.' + i, depth + 1);
   }
-
-  return element;
 }
 
-export default instantiateElement;
+export default buildTree;

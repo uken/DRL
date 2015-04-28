@@ -12,13 +12,15 @@ setInterval(function() {
   };
 }, 1000);
 
+var app;
 var render = function(t) {
   update(t);
-  DRL.render(DRL.createElement(App, {ships: ships, rockets: rockets}), canvas);
+  app.update({ships: ships, rockets: rockets});
   requestAnimationFrame(render);
 };
 
 DRL.load(canvas, ['cat.jpeg', 'clouds.jpg'], function() {
+  app = DRL.render(DRL.createElement(App, {ships: ships, rockets: rockets}), canvas);
   requestAnimationFrame(render);
 });
 

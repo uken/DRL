@@ -1,7 +1,8 @@
-import instantiateElement from './instantiateElement.js';
+import buildTree from './buildTree.js';
 import renderElement from './renderElement.js';
 import TexturePool from './texturePool.js';
-import flattenChildren from './flattenChildren.js';
+import createElement from './createElement.js';
+import Component from './component.js';
 
 var DRL = {
   createClass: function(spec) {
@@ -10,13 +11,7 @@ var DRL = {
     };
   },
 
-  createElement: function(type, props, ...children) {
-    var node = Object.assign({
-      props: Object.assign({}, type.spec.defaultProps, props),
-      children: flattenChildren(children || [])
-    }, type.spec);
-    return node;
-  },
+  createElement: createElement,
 
   load: function(canvas, imagePaths, onCompleteCallback) {
     TexturePool.initialize(canvas);
@@ -28,10 +23,10 @@ var DRL = {
     context.clearRect(0, 0, 600, 600);
 
     var tree = {element: element, children: []};
-    var base_elem = instantiateElement(tree, '0', 0);
+    buildTree(tree, '0', 0);
 
     renderElement(tree, context);
-    return base_elem;
+    return new Component(tree, context);
   }
 };
 
