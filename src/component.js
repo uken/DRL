@@ -17,6 +17,7 @@ class Component {
     buildTree(newTree, '0', 0);
     this.tree = newTree;
 
+    this.context.clearRect(0, 0, 600, 600);
     renderElement(this.tree, this.context);
   }
 }
