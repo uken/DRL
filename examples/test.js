@@ -19,7 +19,7 @@ var render = function(t) {
   requestAnimationFrame(render);
 };
 
-DRL.load(canvas, ['cat.jpeg', 'clouds.jpg'], function() {
+DRL.load(canvas, ['sprites.json'], function() {
   app = DRL.render(DRL.createElement(App, {ships: ships, rockets: rockets}), canvas);
   requestAnimationFrame(render);
 });
