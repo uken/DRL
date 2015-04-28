@@ -24,7 +24,6 @@ var App = DRL.createClass({
             return <Rectangle color='red' x={rocket.x} y={rocket.y} w={50} h={25} />
           })
         }
-        <Text text='Test' x={50} y={100} font='26px sans-serif' />
       </Sprite>
     );
   }
