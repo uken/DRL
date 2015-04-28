@@ -1,16 +1,21 @@
 import instantiateElement from './instantiateElement.js';
 import renderElement from './renderElement.js';
 import TexturePool from './texturePool.js';
+import flattenChildren from './flattenChildren.js';
 
 var DRL = {
   createClass: function(spec) {
-    return function(props, children) {
-      var node = Object.assign({
-        props: Object.assign({}, spec.defaultProps, props),
-        children: children || []
-      }, spec);
-      return node;
+    return {
+      spec: spec
     };
+  },
+
+  createElement: function(type, props, ...children) {
+    var node = Object.assign({
+      props: Object.assign({}, type.spec.defaultProps, props),
+      children: flattenChildren(children || [])
+    }, type.spec);
+    return node;
   },
 
   load: function(canvas, imagePaths, onCompleteCallback) {

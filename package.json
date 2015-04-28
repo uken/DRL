@@ -14,7 +14,7 @@
   "author": "Tanner Rogalsky",
   "license": "MIT",
   "devDependencies": {
-    "babel": "^5.1.11",
+    "babel": "TannerRogalsky/babelify",
     "babelify": "^6.0.2",
     "gulp": "^3.8.11",
     "gulp-browserify": "^0.5.1",

@@ -14,7 +14,7 @@ setInterval(function() {
 
 var render = function(t) {
   update(t);
-  DRL.render(App({ships: ships, rockets: rockets}), canvas);
+  DRL.render(DRL.createElement(App, {ships: ships, rockets: rockets}), canvas);
   requestAnimationFrame(render);
 };
 
