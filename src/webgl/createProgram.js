@@ -13,8 +13,8 @@ uniform mat4 ProjectionMatrix;
 uniform mat4 TransformProjectionMatrix;
 
 uniform sampler2D _tex0_;
-uniform mediump vec4 love_ScreenSize;
-uniform mediump float love_PointSize;
+uniform mediump vec4 drl_ScreenSize;
+uniform mediump float drl_PointSize;
 
 vec4 position(mat4 transform_proj, vec4 vertpos) {
   return transform_proj * vertpos;
@@ -23,7 +23,7 @@ vec4 position(mat4 transform_proj, vec4 vertpos) {
 void main() {
   VaryingTexCoord = VertexTexCoord;
   VaryingColor = VertexColor;
-  gl_PointSize = love_PointSize;
+  gl_PointSize = drl_PointSize;
   gl_Position = position(TransformProjectionMatrix, VertexPosition);
 }
 `
@@ -39,15 +39,15 @@ uniform mat4 ProjectionMatrix;
 uniform mat4 TransformProjectionMatrix;
 
 uniform sampler2D _tex0_;
-uniform mediump vec4 love_ScreenSize;
-uniform mediump float love_PointSize;
+uniform mediump vec4 drl_ScreenSize;
+uniform mediump float drl_PointSize;
 
 vec4 effect(lowp vec4 vcolor, sampler2D texture, vec2 texcoord, vec2 pixcoord) {
   return texture2D(texture, texcoord) * vcolor;
 }
 
 void main() {
-  vec2 pixelcoord = vec2(gl_FragCoord.x, (gl_FragCoord.y * love_ScreenSize.z) + love_ScreenSize.w);
+  vec2 pixelcoord = vec2(gl_FragCoord.x, (gl_FragCoord.y * drl_ScreenSize.z) + drl_ScreenSize.w);
 
   gl_FragColor = effect(VaryingColor, _tex0_, VaryingTexCoord.st, pixelcoord);
 }

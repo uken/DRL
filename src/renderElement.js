@@ -1,14 +1,14 @@
-var renderElement = function(node, context) {
+var renderElement = function(node, gl) {
   var element = node.element;
   var children = node.children;
 
-  if (element.setup) { element.setup(context); }
+  if (element.setup) { element.setup(gl); }
 
   for (var child of children) {
-    renderElement(child, context)
+    renderElement(child, gl)
   }
 
-  if (element.teardown) { element.teardown(context); }
+  if (element.teardown) { element.teardown(gl); }
 }
 
 export default renderElement;

@@ -57,6 +57,11 @@ var loadSpritesheet = function(spritesheetPath, onLoad) {
       var frames = spritesheetData.frames;
       var toLoadCount = 0;
       var loadedCount = 0;
+
+      for (var path in frames) {
+        toLoadCount += 1;
+      }
+
       var onSpritesheetLoad = function() {
         loadedCount += 1;
         if (loadedCount >= toLoadCount) {
@@ -64,26 +69,21 @@ var loadSpritesheet = function(spritesheetPath, onLoad) {
         }
       }
 
-      for (var path in frames) {
-        toLoadCount += 1;
-        loadFrame(path, frames[path], sourceWidth, sourceHeight, onSpritesheetLoad);
+      var element = new Image();
+      element.src = spritesheetData.meta.image;
+      element.onload = function() {
+        var texture = createTexture(context, this);
+        for (var path in frames) {
+          var {x, y, w, h} = frames[path].frame;
+          textures[path] = new ImageData(this, texture, x, y, w, h, sourceWidth, sourceHeight);
+          onSpritesheetLoad();
+        }
       }
     }
   }
 
   xmlhttp.open('GET', spritesheetPath, true);
   xmlhttp.send();
-}
-
-var loadFrame = function(imagePath, frameData, sourceWidth, sourceHeight, onLoad) {
-  var {x, y, w, h} = frameData.frame;
-  var image = new Image();
-  image.src = imagePath;
-  image.onload = function(){
-    var texture = createTexture(context, this);
-    textures[imagePath] = new ImageData(image, texture, x, y, w, h, sourceWidth, sourceHeight);
-    onLoad();
-  };
 }
 
 var loadImage = function(imagePath, onLoad) {

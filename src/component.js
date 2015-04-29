@@ -3,9 +3,9 @@ import renderElement from './renderElement.js';
 import createElement from './createElement.js';
 
 class Component {
-  constructor(tree, context) {
+  constructor(tree, gl) {
     this.tree = tree;
-    this.context = context;
+    this.gl = gl;
   }
 
   update(newProps) {
@@ -17,8 +17,8 @@ class Component {
     buildTree(newTree, '0', 0);
     this.tree = newTree;
 
-    this.context.clearRect(0, 0, 600, 600);
-    renderElement(this.tree, this.context);
+    this.gl.clear();
+    renderElement(this.tree, this.gl);
   }
 }
 

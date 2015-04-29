@@ -26,13 +26,13 @@ const UNIFORM_TYPES = {
 };
 
 var mapActiveUniforms = function(context, program) {
-  var activeUniformCount = context.getProgramParameter(this.program, context.ACTIVE_UNIFORMS);
+  var activeUniformCount = context.getProgramParameter(program, context.ACTIVE_UNIFORMS);
   var uniforms = {};
 
   for (var i = 0; i < activeUniformCount; i++) {
-    var uniform = context.getActiveUniform(this.program, i);
+    var uniform = context.getActiveUniform(program, i);
     uniform.typeName = UNIFORM_TYPES[uniform.type];
-    uniform.location = context.getUniformLocation(this.program, uniform.name);
+    uniform.location = context.getUniformLocation(program, uniform.name);
     uniforms[uniform.name] = uniform;
   }
 
