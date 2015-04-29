@@ -30,12 +30,12 @@ class WebGL {
     this.transformProjectionMatrix = mat4.create();
     this.projectionMatrices.push(createOrthoMatrix(0, this.width, this.height, 0));
 
-    this.shader.sendFloat("drl_ScreenSize", new Float32Array([this.width, this.height, 0, 0]));
-    this.shader.sendFloat("drl_PointSize", new Float32Array([1]));
+    this.shader.sendFloat('drl_ScreenSize', new Float32Array([this.width, this.height, 0, 0]));
+    this.shader.sendFloat('drl_PointSize', new Float32Array([1]));
 
-    this.positionLocation = this.shader.getAttribLocation("VertexPosition");
-    this.texCoordLocation = this.shader.getAttribLocation("VertexTexCoord");
-    this.colorLocation = this.shader.getAttribLocation("VertexColor");
+    this.positionLocation = this.shader.getAttribLocation('VertexPosition');
+    this.texCoordLocation = this.shader.getAttribLocation('VertexTexCoord');
+    this.colorLocation = this.shader.getAttribLocation('VertexColor');
 
     this.context.clearColor(0, 0, 0, 1);
     this.context.vertexAttrib4f(this.colorLocation, 1, 1, 1, 1);
@@ -57,9 +57,9 @@ class WebGL {
     var projectionMatrix = this.projectionMatrices[this.projectionMatrices.length - 1];
     var transformProjectionMatrix = mat4.mul(this.transformProjectionMatrix, projectionMatrix, transformMatrix);
 
-    this.shader.sendMatrix("TransformMatrix", transformMatrix);
-    this.shader.sendMatrix("ProjectionMatrix", projectionMatrix);
-    this.shader.sendMatrix("TransformProjectionMatrix", transformProjectionMatrix);
+    this.shader.sendMatrix('TransformMatrix', transformMatrix);
+    this.shader.sendMatrix('ProjectionMatrix', projectionMatrix);
+    this.shader.sendMatrix('TransformProjectionMatrix', transformProjectionMatrix);
 
     this.bindTexture(imageData.texture);
 
