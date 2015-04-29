@@ -53,7 +53,7 @@ class WebGL {
   drawImage(imageData, x, y, angle, sx, sy, ox, oy, kx, ky) {
     var imageTransformMatrix = setTransformation(new Float32Array(16), x, y, angle, sx, sy, ox, oy, kx, ky);
 
-    var transformMatrix = mat4.mul(new Float32Array(16), this.transformMatrices[this.transformMatrices.length - 1], imageTransformMatrix);
+    var transformMatrix = mat4.mul(imageTransformMatrix, this.transformMatrices[this.transformMatrices.length - 1], imageTransformMatrix);
     var projectionMatrix = this.projectionMatrices[this.projectionMatrices.length - 1];
     var transformProjectionMatrix = mat4.mul(this.transformProjectionMatrix, projectionMatrix, transformMatrix);
 
