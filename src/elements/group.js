@@ -12,14 +12,13 @@ var Group = DRL.createClass({
     ky: 0
   },
 
-  setup: function(context) {
-    context.save();
-    var props = this.props;
-    context.transform(props.sx, 0, 0, props.sy, props.x, props.y);
+  setup: function(gl) {
+    gl.push();
+    gl.transform(this.props.x, this.props.y, 0, this.props.sx, this.props.sy, 0, 0, this.props.kx, this.props.ky);
   },
 
-  teardown: function(context) {
-    context.restore();
+  teardown: function(gl) {
+    gl.pop();
   },
 
   render: function() {

@@ -30,6 +30,7 @@ class WebGL {
     glMatrix.setMatrixArrayType(Float32Array);
     this.transformMatrices = [mat4.create()];
     this.projectionMatrices = [mat4.create()];
+    this.transformProjectionMatrix = mat4.create();
     this.projectionMatrices.push(createOrthoMatrix(0, width, height, 0));
 
     this.sendFloat("drl_ScreenSize", new Float32Array([width, height, 0, 0]));
@@ -51,10 +52,11 @@ class WebGL {
   }
 
   drawImage(imageData, x, y, angle, sx, sy, ox, oy, kx, ky) {
-    var transformMatrix = this.transformMatrices[this.transformMatrices.length - 1];
-    var transformMatrix = setTransformation(new Float32Array(16), x, y, angle, sx, sy, ox, oy, kx, ky);
+    var imageTransformMatrix = setTransformation(new Float32Array(16), x, y, angle, sx, sy, ox, oy, kx, ky);
+
+    var transformMatrix = mat4.mul(new Float32Array(16), this.transformMatrices[this.transformMatrices.length - 1], imageTransformMatrix);
     var projectionMatrix = this.projectionMatrices[this.projectionMatrices.length - 1];
-    var transformProjectionMatrix = mat4.mul(new Float32Array(16), projectionMatrix, transformMatrix);
+    var transformProjectionMatrix = mat4.mul(this.transformProjectionMatrix, projectionMatrix, transformMatrix);
 
     this.sendMatrix("TransformMatrix", transformMatrix);
     this.sendMatrix("ProjectionMatrix", projectionMatrix);
@@ -85,6 +87,19 @@ class WebGL {
       this.context.bindTexture(this.context.TEXTURE_2D, texture);
       this.activeTexture = texture;
     }
+  }
+
+  transform(x, y, angle, sx, sy, ox, oy, kx, ky) {
+    var currentTransform = this.transformMatrices[this.transformMatrices.length - 1];
+    setTransformation(currentTransform, x, y, angle, sx, sy, ox, oy, kx, ky)
+  }
+
+  push() {
+    this.transformMatrices.push(mat4.copy(new Float32Array(16), this.transformMatrices[this.transformMatrices.length - 1]));
+  }
+
+  pop() {
+    this.transformMatrices.pop();
   }
 
   sendMatrix(name, matrix) {
