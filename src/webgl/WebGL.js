@@ -1,21 +1,18 @@
 import getContext from './getContext.js';
-import createProgram from './createProgram.js';
-import mapActiveUniforms from './mapActiveUniforms.js';
+import createDefaultTexture from './createDefaultTexture.js';
 import createOrthoMatrix from './createOrthoMatrix.js';
 import setTransformation from './setTransformation.js';
 import {glMatrix, mat4} from 'gl-matrix';
+import Shader from './Shader.js';
 
 class WebGL {
   constructor(canvas) {
     this.canvas = canvas;
     this.context = getContext(this.canvas);
-    this.program = createProgram(this.context);
-    this.uniforms = mapActiveUniforms(this.context, this.program);
+    this.shader = new Shader(this.context);
 
     var width = this.canvas.width;
     var height = this.canvas.height;
-
-    this.context.useProgram(this.program);
     this.context.viewport(0, 0, width, height);
 
     this.context.disable(this.context.CULL_FACE);
@@ -33,18 +30,20 @@ class WebGL {
     this.transformProjectionMatrix = mat4.create();
     this.projectionMatrices.push(createOrthoMatrix(0, width, height, 0));
 
-    this.sendFloat("drl_ScreenSize", new Float32Array([width, height, 0, 0]));
-    this.sendFloat("drl_PointSize", new Float32Array([1]));
+    this.shader.sendFloat("drl_ScreenSize", new Float32Array([width, height, 0, 0]));
+    this.shader.sendFloat("drl_PointSize", new Float32Array([1]));
 
-    this.positionLocation = this.context.getAttribLocation(this.program, "VertexPosition");
-    this.texCoordLocation = this.context.getAttribLocation(this.program, "VertexTexCoord");
-    this.colorLocation = this.context.getAttribLocation(this.program, "VertexColor");
+    this.positionLocation = this.shader.getAttribLocation("VertexPosition");
+    this.texCoordLocation = this.shader.getAttribLocation("VertexTexCoord");
+    this.colorLocation = this.shader.getAttribLocation("VertexColor");
 
     this.context.clearColor(0, 0, 0, 1);
     this.context.vertexAttrib4f(this.colorLocation, 1, 1, 1, 1);
 
     this.texCoordBuffer = this.context.createBuffer();
     this.positionBuffer = this.context.createBuffer();
+
+    this.defaultTexture = createDefaultTexture(this.context);
   }
 
   clear() {
@@ -58,9 +57,9 @@ class WebGL {
     var projectionMatrix = this.projectionMatrices[this.projectionMatrices.length - 1];
     var transformProjectionMatrix = mat4.mul(this.transformProjectionMatrix, projectionMatrix, transformMatrix);
 
-    this.sendMatrix("TransformMatrix", transformMatrix);
-    this.sendMatrix("ProjectionMatrix", projectionMatrix);
-    this.sendMatrix("TransformProjectionMatrix", transformProjectionMatrix);
+    this.shader.sendMatrix("TransformMatrix", transformMatrix);
+    this.shader.sendMatrix("ProjectionMatrix", projectionMatrix);
+    this.shader.sendMatrix("TransformProjectionMatrix", transformProjectionMatrix);
 
     this.bindTexture(imageData.texture);
 
@@ -100,43 +99,6 @@ class WebGL {
 
   pop() {
     this.transformMatrices.pop();
-  }
-
-  sendMatrix(name, matrix) {
-    var uniform = this.uniforms[name];
-    if (!uniform) { return; }
-
-    switch (Math.sqrt(matrix.length)) {
-      case 2:
-        this.context.uniformMatrix2fv(uniform.location, false, matrix);
-        break;
-      case 3:
-        this.context.uniformMatrix3fv(uniform.location, false, matrix);
-        break;
-      case 4:
-        this.context.uniformMatrix4fv(uniform.location, false, matrix);
-        break;
-    }
-  }
-
-  sendFloat(name, floats) {
-    var uniform = this.uniforms[name];
-    if (!uniform) { return; }
-
-    switch (floats.length) {
-      case 1:
-        this.context.uniform1fv(uniform.location, floats);
-        break;
-      case 2:
-        this.context.uniform2fv(uniform.location, floats);
-        break;
-      case 3:
-        this.context.uniform3fv(uniform.location, floats);
-        break;
-      case 4:
-        this.context.uniform4fv(uniform.location, floats);
-        break;
-    }
   }
 }
 
