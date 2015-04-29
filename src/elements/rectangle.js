@@ -4,14 +4,11 @@ var Rectangle = DRL.createClass({
   name: 'Rectangle',
 
   defaultProps: {
-    red: 1,
-    green: 1,
-    blue: 1,
-    alpha: 1
+    color: [1, 1, 1, 1]
   },
 
   setup: function(gl) {
-    var {red, green, blue, alpha} = this.props;
+    var [red, green, blue, alpha] = this.props.color;
     gl.setColor(red, blue, green, alpha);
 
     var {x, y, w, h} = this.props;

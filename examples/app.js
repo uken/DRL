@@ -11,17 +11,15 @@ var App = DRL.createClass({
         {
           this.props.ships.map(function(ship){
             return (
-              <Mask x={ship.x + 25} y={ship.y + 25}>
-                <Ship x={ship.x} y={ship.y}>
-                  <Rectangle color='teal' x={-15} y={0} w={30} h={25} />
-                </Ship>
-              </Mask>
+              <Ship {...ship} >
+                <Rectangle color={[0, 1, 1, 1]} x={-15} y={0} w={30} h={25} />
+              </Ship>
             );
           })
         }
         {
           this.props.rockets.map(function(rocket){
-            return <Rectangle color='red' x={rocket.x} y={rocket.y} w={50} h={25} />
+            return <Rectangle color={[1, 0, 0, 1]} {...rocket} w={50} h={25} />
           })
         }
       </Sprite>
