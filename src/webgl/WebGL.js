@@ -38,7 +38,7 @@ class WebGL {
     this.colorLocation = this.shader.getAttribLocation('VertexColor');
 
     this.context.clearColor(0, 0, 0, 1);
-    this.context.vertexAttrib4f(this.colorLocation, 1, 1, 1, 1);
+    this.setColor(1, 1, 1, 1);
 
     this.texCoordBuffer = this.context.createBuffer();
     this.positionBuffer = this.context.createBuffer();
@@ -52,15 +52,10 @@ class WebGL {
 
   drawImage(imageData, x, y, angle, sx, sy, ox, oy, kx, ky) {
     var imageTransformMatrix = setTransformation(new Float32Array(16), x, y, angle, sx, sy, ox, oy, kx, ky);
+    mat4.mul(imageTransformMatrix, this.transformMatrices[this.transformMatrices.length - 1], imageTransformMatrix)
+    this.transformMatrices.push(imageTransformMatrix);
 
-    var transformMatrix = mat4.mul(imageTransformMatrix, this.transformMatrices[this.transformMatrices.length - 1], imageTransformMatrix);
-    var projectionMatrix = this.projectionMatrices[this.projectionMatrices.length - 1];
-    var transformProjectionMatrix = mat4.mul(this.transformProjectionMatrix, projectionMatrix, transformMatrix);
-
-    this.shader.sendMatrix('TransformMatrix', transformMatrix);
-    this.shader.sendMatrix('ProjectionMatrix', projectionMatrix);
-    this.shader.sendMatrix('TransformProjectionMatrix', transformProjectionMatrix);
-
+    this.prepareDraw();
     this.bindTexture(imageData.texture);
 
     var gl = this.context;
@@ -79,6 +74,23 @@ class WebGL {
 
     gl.disableVertexAttribArray(this.positionLocation);
     gl.disableVertexAttribArray(this.texCoordLocation);
+
+    this.transformMatrices.pop();
+  }
+
+  polygon(points) {
+    this.prepareDraw();
+
+    this.bindTexture(this.defaultTexture);
+
+    this.context.bindBuffer(this.context.ARRAY_BUFFER, this.positionBuffer);
+    this.context.bufferData(this.context.ARRAY_BUFFER, new Float32Array(points), this.context.DYNAMIC_DRAW);
+    this.context.enableVertexAttribArray(this.positionLocation);
+    this.context.vertexAttribPointer(this.positionLocation, 2, this.context.FLOAT, false, 0, 0);
+
+    this.context.drawArrays(this.context.TRIANGLE_FAN, 0, points.length / 2);
+
+    this.context.disableVertexAttribArray(this.positionLocation);
   }
 
   bindTexture(texture) {
@@ -91,6 +103,10 @@ class WebGL {
   transform(x, y, angle, sx, sy, ox, oy, kx, ky) {
     var currentTransform = this.transformMatrices[this.transformMatrices.length - 1];
     setTransformation(currentTransform, x, y, angle, sx, sy, ox, oy, kx, ky)
+  }
+
+  setColor(red, green, blue, alpha) {
+    this.context.vertexAttrib4f(this.colorLocation, red, green, blue, alpha);
   }
 
   push() {
@@ -109,6 +125,16 @@ class WebGL {
 
   disableScissor() {
     this.context.disable(this.context.SCISSOR_TEST);
+  }
+
+  prepareDraw() {
+    var transformMatrix = this.transformMatrices[this.transformMatrices.length - 1];
+    var projectionMatrix = this.projectionMatrices[this.projectionMatrices.length - 1];
+    var transformProjectionMatrix = mat4.mul(this.transformProjectionMatrix, projectionMatrix, transformMatrix);
+
+    this.shader.sendMatrix('TransformMatrix', transformMatrix);
+    this.shader.sendMatrix('ProjectionMatrix', projectionMatrix);
+    this.shader.sendMatrix('TransformProjectionMatrix', transformProjectionMatrix);
   }
 }
 
