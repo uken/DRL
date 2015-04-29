@@ -11,9 +11,9 @@ class WebGL {
     this.context = getContext(this.canvas);
     this.shader = new Shader(this.context);
 
-    var width = this.canvas.width;
-    var height = this.canvas.height;
-    this.context.viewport(0, 0, width, height);
+    this.width = this.canvas.width;
+    this.height = this.canvas.height;
+    this.context.viewport(0, 0, this.width, this.height);
 
     this.context.disable(this.context.CULL_FACE);
     this.context.disable(this.context.DEPTH_TEST);
@@ -28,9 +28,9 @@ class WebGL {
     this.transformMatrices = [mat4.create()];
     this.projectionMatrices = [mat4.create()];
     this.transformProjectionMatrix = mat4.create();
-    this.projectionMatrices.push(createOrthoMatrix(0, width, height, 0));
+    this.projectionMatrices.push(createOrthoMatrix(0, this.width, this.height, 0));
 
-    this.shader.sendFloat("drl_ScreenSize", new Float32Array([width, height, 0, 0]));
+    this.shader.sendFloat("drl_ScreenSize", new Float32Array([this.width, this.height, 0, 0]));
     this.shader.sendFloat("drl_PointSize", new Float32Array([1]));
 
     this.positionLocation = this.shader.getAttribLocation("VertexPosition");
@@ -99,6 +99,16 @@ class WebGL {
 
   pop() {
     this.transformMatrices.pop();
+  }
+
+  enableScissor(x, y, w, h) {
+    this.context.enable(this.context.SCISSOR_TEST);
+    // scissor start from lower left of viewport
+    this.context.scissor(x, this.height - (y + h), w, h);
+  }
+
+  disableScissor() {
+    this.context.disable(this.context.SCISSOR_TEST);
   }
 }
 

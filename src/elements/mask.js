@@ -3,15 +3,12 @@ import DRL from '../drl.js';
 var Mask = DRL.createClass({
   name: "Mask",
 
-  setup: function(context) {
-    context.save();
-    context.beginPath();
-    context.arc(this.props.x, this.props.y, 20, 0, Math.PI*2, true);
-    context.clip();
+  setup: function(gl) {
+    gl.enableScissor(this.props.x, this.props.y, this.props.w, this.props.h);
   },
 
-  teardown: function(context) {
-    context.restore();
+  teardown: function(gl) {
+    gl.disableScissor();
   },
 
   render: function() {
