@@ -70,7 +70,7 @@ class WebGL {
     gl.bufferData(gl.ARRAY_BUFFER, imageData.coords, gl.DYNAMIC_DRAW);
     gl.vertexAttribPointer(this.positionLocation, 2, gl.FLOAT, false, 0, 0);
 
-    gl.drawArrays(gl.TRIANGLE_FAN, 0, 4);
+    gl.drawArrays(gl.TRIANGLES, 0, 6);
 
     gl.disableVertexAttribArray(this.positionLocation);
     gl.disableVertexAttribArray(this.texCoordLocation);

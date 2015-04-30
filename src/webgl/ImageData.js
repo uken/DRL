@@ -8,14 +8,18 @@ class ImageData {
       0, 0,
       0, height,
       width, height,
-      width, 0
+      width, height,
+      width, 0,
+      0, 0
     ]);
 
     this.uvs = new Float32Array([
       x / sourceWidth, y / sourceHeight,
       x / sourceWidth, (y + height) / sourceHeight,
       (x + width) / sourceWidth, (y + height) / sourceHeight,
-      (x + width) / sourceWidth, y / sourceHeight
+      (x + width) / sourceWidth, (y + height) / sourceHeight,
+      (x + width) / sourceWidth, y / sourceHeight,
+      x / sourceWidth, y / sourceHeight,
     ]);
   }
 }
