@@ -8,19 +8,23 @@ class ImageData {
       0, 0,
       0, height,
       width, height,
-      width, height,
+
       width, 0,
-      0, 0
+      0, 0,
+      width, height,
     ]);
 
     this.uvs = new Float32Array([
       x / sourceWidth, y / sourceHeight,
       x / sourceWidth, (y + height) / sourceHeight,
       (x + width) / sourceWidth, (y + height) / sourceHeight,
-      (x + width) / sourceWidth, (y + height) / sourceHeight,
+
       (x + width) / sourceWidth, y / sourceHeight,
+      (x + width) / sourceWidth, (y + height) / sourceHeight,
       x / sourceWidth, y / sourceHeight,
     ]);
+
+    this.indices = new Uint16Array([0, 1, 2, 0, 3, 2]);
   }
 }
 

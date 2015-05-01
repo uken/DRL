@@ -42,6 +42,7 @@ class WebGL {
 
     this.texCoordBuffer = this.context.createBuffer();
     this.positionBuffer = this.context.createBuffer();
+    this.indicesBuffer = this.context.createBuffer();
 
     this.defaultTexture = createDefaultTexture(this.context);
   }
@@ -62,6 +63,9 @@ class WebGL {
     gl.enableVertexAttribArray(this.positionLocation);
     gl.enableVertexAttribArray(this.texCoordLocation);
 
+    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.indicesBuffer);
+    gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, imageData.indices, gl.DYNAMIC_DRAW);
+
     gl.bindBuffer(gl.ARRAY_BUFFER, this.texCoordBuffer);
     gl.bufferData(gl.ARRAY_BUFFER, imageData.uvs, gl.DYNAMIC_DRAW);
     gl.vertexAttribPointer(this.texCoordLocation, 2, gl.FLOAT, false, 0, 0);
@@ -70,7 +74,7 @@ class WebGL {
     gl.bufferData(gl.ARRAY_BUFFER, imageData.coords, gl.DYNAMIC_DRAW);
     gl.vertexAttribPointer(this.positionLocation, 2, gl.FLOAT, false, 0, 0);
 
-    gl.drawArrays(gl.TRIANGLES, 0, 6);
+    gl.drawElements(gl.TRIANGLES, 6, gl.UNSIGNED_SHORT, 0);
 
     gl.disableVertexAttribArray(this.positionLocation);
     gl.disableVertexAttribArray(this.texCoordLocation);
