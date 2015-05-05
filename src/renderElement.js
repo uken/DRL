@@ -1,11 +1,10 @@
 var renderElement = function(node, gl) {
-  var element = node.element;
-  var children = node.children;
+  var {element, childrenIDs, children} = node;
 
   if (element.setup) { element.setup(gl); }
 
-  for (var child of children) {
-    renderElement(child, gl)
+  for (var id of childrenIDs) {
+    renderElement(children[id], gl)
   }
 
   if (element.teardown) { element.teardown(gl); }

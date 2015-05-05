@@ -9,16 +9,19 @@ class Component {
   }
 
   update(newProps) {
-    var rootElement = this.tree.element;
+    var rootElement = this.tree['0'].element;
     var newTree = {
-      element: createElement(rootElement.type, newProps),
-      children: []
+      '0': {
+        element: createElement(rootElement.type, newProps),
+        childrenIDs: [],
+        children: {}
+      }
     }
-    buildTree(newTree, '0', 0);
+    buildTree(newTree, '0');
     this.tree = newTree;
 
     this.gl.clear();
-    renderElement(this.tree, this.gl);
+    renderElement(this.tree['0'], this.gl);
   }
 }
 

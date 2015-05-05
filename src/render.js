@@ -6,10 +6,16 @@ import Component from './Component.js';
 var render = function(element, canvas) {
   var gl = new WebGL(canvas);
 
-  var tree = {element: element, children: []};
-  buildTree(tree, '0', 0);
+  var tree = {
+    '0': {
+      element: element,
+      childrenIDs: [],
+      children: {}
+    }
+  }
+  buildTree(tree, '0');
 
-  renderElement(tree, gl);
+  renderElement(tree['0'], gl);
   return new Component(tree, gl);
 }
 
