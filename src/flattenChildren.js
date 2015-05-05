@@ -1,4 +1,4 @@
-function flattenChildren(children, isStrict) {
+function flattenChildren(children) {
    var index = -1,
        length = children.length,
        resIndex = -1,
