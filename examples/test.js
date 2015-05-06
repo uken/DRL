@@ -20,7 +20,7 @@ var render = function(t) {
 };
 
 DRL.load(canvas, ['sprites.json'], function() {
-  app = DRL.render(DRL.createElement(App, {ships: ships, rockets: rockets}), canvas);
+  app = DRL.render(App({ships: ships, rockets: rockets}), canvas);
   requestAnimationFrame(render);
 });
 

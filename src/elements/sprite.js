@@ -31,7 +31,7 @@ var Sprite = DRL.createClass({
   },
 
   render: function() {
-    return this.children;
+    return this._children;
   }
 });
 

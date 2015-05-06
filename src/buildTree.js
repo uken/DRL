@@ -1,3 +1,5 @@
+import DRLCurrentElement from './currentElement.js';
+
 var buildTree = function(tree, id) {
   var node = tree[id];
   var element = node.element;
@@ -9,6 +11,7 @@ var buildTree = function(tree, id) {
   element.id = id;
   var idSubstring = id + '.';
 
+  DRLCurrentElement.current = element;
   var subnode = element.render();
   if (subnode instanceof Array) {
     for (var i = 0; i < subnode.length; i++) {

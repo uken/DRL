@@ -1,10 +1,18 @@
 import flattenChildren from './flattenChildren.js';
+import DRLCurrentElement from './currentElement.js';
 
-var createElement = function(type, props, ...children) {
+var children = function(childrenEvaluator) {
+  DRLCurrentElement.current = this;
+  this._children = flattenChildren(childrenEvaluator() || []);
+  return this;
+}
+
+var createElement = function(type, props) {
   var node = Object.assign({
     type: type,
     props: Object.assign({}, type.spec.defaultProps, props),
-    children: flattenChildren(children || [])
+    children: children,
+    _children: []
   }, type.spec);
   return node;
 }

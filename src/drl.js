@@ -4,9 +4,10 @@ import render from './render.js';
 
 var DRL = {
   createClass: function(spec) {
-    return {
-      spec: spec
-    };
+    return createElement.bind(null, {spec: spec})
+    // return {
+    //   spec: spec
+    // };
   },
 
   createElement: createElement,

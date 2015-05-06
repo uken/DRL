@@ -10,9 +10,10 @@ class Component {
 
   update(newProps) {
     var rootElement = this.tree['0'].element;
+    rootElement.props = newProps;
     var newTree = {
       '0': {
-        element: createElement(rootElement.type, newProps),
+        element: rootElement,
         childrenIDs: [],
         children: {}
       }
