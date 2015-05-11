@@ -1,8 +1,8 @@
 #Overview
-###What This Library Is
+#####What This Library Is
 This library exposes an API allowing purely functional WebGL rendering. It allows the creation of reusable components and provides a collection of ‘building blocks’ for representing WebGL primitives as stateless functions.
 
-###What This Library Is Not
+#####What This Library Is Not
 This library does not provide an animation loop. This library does not provide touch, mouse, or keyboard events. This library is not a state machine.
 
 #Top-Level API
@@ -20,16 +20,16 @@ This library does not provide an animation loop. This library does not provide t
 
 The core rendering elements provided by DRL. These are analogous to the React.DOMelements. They are the building blocks for all other elements.
 
-###Image
+#####Image
 * A texture or subsection of a texture.
  
-###Shape
+#####Shape
 * The most basic graphics drawing primitive.
  
-###Scissor
+#####Scissor
 * A quad that culls all of its child render calls to its bounds.
  
-###Group
+#####Group
 * A way or grouping and manipulating the graphics context without visibly rendering anything.
  
 #Requirements
