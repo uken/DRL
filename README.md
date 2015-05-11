@@ -18,7 +18,7 @@ This library does not provide an animation loop. This library does not provide t
 
 #Supported Tags and Attributes
 
-The core rendering elements provided by DRL. These are analogous to the React.DOMelements. They are the building blocks for all other elements.
+The core rendering elements provided by DRL. These are analogous to the `React.DOM` elements. They are the building blocks for all other elements.
 
 #####Image
 * A texture or subsection of a texture.
