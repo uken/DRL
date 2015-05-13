@@ -1,3 +1,16 @@
+## Setup
+
+A small example exists under `examples/test.html`
+
+We've been running a simple http server with python and loading this file directly. A simple node server Pull Request would be greatly appreciated :)
+
+Anyways, to use our approach, follow these steps:
+
+1. cd into the directory where this repo is saved
+2. run `python -m SimpleHTTPServer`
+3. in a browser, hit `localhost:8000/examples/test.html`
+
+
 #Overview
 #####What This Library Is
 This library exposes an API allowing purely functional WebGL rendering. It allows the creation of reusable components and provides a collection of ‘building blocks’ for representing WebGL primitives as stateless functions.
