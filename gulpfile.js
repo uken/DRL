@@ -22,11 +22,3 @@ gulp.task('default', function() {
 gulp.task('watch', ['default'], function(){
   gulp.watch(['./drl.js', './src/**/*.js', './examples/**/*.js'], ['default']);
 });
-
-gulp.task('test', function() {
-  return gulp.src('./spec/**/*', {read: false})
-    .pipe(generateSuite())
-    .pipe(browserify({transform: ['babelify']}))
-    .pipe(gulp.dest('./tmp'))
-    .pipe(mocha());
-});
