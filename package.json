@@ -2,6 +2,7 @@
   "name": "DRL",
   "version": "1.0.0",
   "description": "A declarative rendering library.",
+  "repository": "https://github.com/uken/DRL",
   "main": "drl.js",
   "scripts": {
     "test": "npm test"
