@@ -12,10 +12,10 @@ Anyways, to use our approach, follow these steps:
 
 
 #Overview
-#####What This Library Is
+#####What This Is
 This library exposes an API allowing purely functional WebGL rendering. It allows the creation of reusable components and provides a collection of ‘building blocks’ for representing WebGL primitives as stateless functions.
 
-#####What This Library Is Not
+#####What This Isn't
 This library does not provide an animation loop. This library does not provide touch, mouse, or keyboard events. This library is not a state machine.
 
 #Top-Level API
